@@ -1,9 +1,9 @@
-name: SonarQube Job
+name: SonarQube
 on:
   push:
     branches:
       - master
-  pull_request:
+  pull_request: 
     types: [opened, synchronize, reopened]
     branches:
       - master 
