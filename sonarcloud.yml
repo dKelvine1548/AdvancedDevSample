@@ -2,9 +2,15 @@ name: SonarCloud (.NET)
 
 on:
   push:
-    branches: [ "master" ]        # change en "main" si ta branche par défaut s'appelle main
+    branches:            
+      - master
+      - sonarqube
+
   pull_request:
+    branche:
+      - sonarqube
     types: [ opened, synchronize, reopened ]
+
 
 permissions:
   contents: read
