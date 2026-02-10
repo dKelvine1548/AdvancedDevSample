@@ -3,12 +3,11 @@ name: SonarCloud (.NET)
 on:
   push:
     branches:            
-      - master
       - sonarqube
 
   pull_request:
     branche:
-      - sonarqube
+      - master
     types: [ opened, synchronize, reopened ]
 
 
