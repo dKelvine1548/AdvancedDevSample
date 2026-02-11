@@ -57,11 +57,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin `
-            /k:"dKelvine1548_ProductCatalogue" `
-            /o:"dkelvine1548" `
-            /d:sonar.cs.opencover.reportsPaths="**/TestResults/coverage/coverage.opencover.xml" `
-            /d:sonar.token="${{ env.SONAR_TOKEN }}"
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"dKelvine1548_ProductCatalogue" /o:"dkelvine1548" /d:sonar.cs.opencover.reportsPaths="**/TestResults/coverage/coverage.opencover.xml" /d:sonar.token="${{ env.SONAR_TOKEN }}"
 
       - name: Build
         shell: powershell
@@ -71,11 +67,7 @@ jobs:
       - name: Test with coverage (OpenCover)
         shell: powershell
         run: |
-          dotnet test .\AdvancedDevSample.Test\AdvancedDevSample.Test.csproj ` 
-            --configuration Release `
-            /p:CollectCoverage=true `
-            /p:CoverletOutput=TestResults/coverage/ `
-            /p:CoverletOutputFormat=opencover
+          dotnet test .\AdvancedDevSample.Test\AdvancedDevSample.Test.csproj --configuration Release /p:CollectCoverage=true /p:CoverletOutput=TestResults/coverage/ /p:CoverletOutputFormat=opencover
 
       - name: SonarCloud End
         shell: powershell
