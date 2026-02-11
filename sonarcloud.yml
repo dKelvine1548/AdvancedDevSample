@@ -71,7 +71,7 @@ jobs:
       - name: Test with coverage (OpenCover)
         shell: powershell
         run: |
-          dotnet test .\AdvancedDevSample.Test\AdvancedDevSample.Test.csproj `
+          dotnet test .\AdvancedDevSample.Test\AdvancedDevSample.Test.csproj ` 
             --configuration Release `
             /p:CollectCoverage=true `
             /p:CoverletOutput=TestResults/coverage/ `
