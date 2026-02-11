@@ -8,7 +8,7 @@ on:
   pull_request:
     branche:
       - master
-    types: [ opened, synchronize, reopened ]
+    types: [ opened, synchronize, reopened ] 
 
 
 permissions:
@@ -68,11 +68,10 @@ jobs:
         run: dotnet build --configuration Release
 
       # === Couverture .NET via Coverlet (format OpenCover) ===
-      # Adapte le chemin du projet de tests si nécessaire
       - name: Test with coverage (OpenCover)
         shell: powershell
         run: |
-          dotnet test .\tests\ProductCatalogue.Tests\ProductCatalogue.Tests.csproj `
+          dotnet test .\AdvancedDevSample.Test\AdvancedDevSample.Test.csproj ` 
             --configuration Release `
             /p:CollectCoverage=true `
             /p:CoverletOutput=TestResults/coverage/ `
