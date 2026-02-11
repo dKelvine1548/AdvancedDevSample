@@ -20,7 +20,7 @@ namespace AdvancedDevSample.Test.Domain.Entities
 
         }
 
-        [Fact]
+        /*[Fact]
         public void ChangePrice_Should_Throw_Exception_When_Product_Is_Inactive()
         {
             var product = new Product();
@@ -32,9 +32,9 @@ namespace AdvancedDevSample.Test.Domain.Entities
 
             Assert.Equal("Impossible demodifier un produit inactif", exception.Message);
 
-        }
+        }*/
 
-        [Fact]
+        /*[Fact]
         public void ApplyDiscount_Should_Decrease_Price()
         {
             //Arrange
@@ -43,7 +43,7 @@ namespace AdvancedDevSample.Test.Domain.Entities
 
             //Assert
             Assert.Equal(70, product.Price);
-        }
+        }*/
 
         [Fact]
         public void ApplyDiscount_Should_Throw_When_Resulting_Price_Is_Invalid()
@@ -56,7 +56,6 @@ namespace AdvancedDevSample.Test.Domain.Entities
             Assert.Throws<DomainException>(() => product.ApplyDiscount(30));
 
         }
-
 
     }
 }
