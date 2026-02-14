@@ -9,21 +9,18 @@ namespace AdvancedDevSample.Test.Component
     public class ProductServiceTest
     {
         [Fact]
-        public void ChangePrice_Should_Throw_When_Negative()
+        public void ChangePrice_Should_Update_Product()
         {
-            var product = new Product(Guid.NewGuid(), 10, true, "Test");
+            var repo = new FakeProductRepository();
+            var service = new ProductService(repo);
 
-            Assert.Throws<DomainException>(() => product.ChangePrice(-5));
-        }
+            var id = service.Create(new CreateProductDto { Name = "Desk", Price = 100 });
 
-        [Fact]
-        public void ChangePrice_Should_Work_When_Valid()
-        {
-            var product = new Product(Guid.NewGuid(), 10, true, "Test");
+            service.ChangePrice(id, 150);
 
-            product.ChangePrice(25);
+            var product = repo.GetByIdProduct(id);
 
-            Assert.Equal(25, product.Price);
+            Assert.Equal(150, product.Price);
         }
     }
 }

@@ -21,9 +21,13 @@ namespace AdvancedDevSample.Api.Controllers
         [HttpPost]
         public IActionResult CreateProduct(CreateProductDto dto)
         {
-            var product = productService.Create(dto); 
+            var productId = productService.Create(dto); 
 
-            return Ok(product);
+            return CreatedAtAction(
+                nameof(GetById),
+                new { id = productId },  
+                null               
+            );
         }
 
         [HttpGet]
