@@ -53,8 +53,10 @@ namespace AdvancedDevSample.Api.Controllers
         public IActionResult ChangePriceProduct(Guid id, [FromBody] ChangePriceRequest request)
         {
             var product = _productService.ChangePrice(id, request.NewPrice);
+
             return Ok(product);
         }
+
 
         [HttpDelete("{id}")]
         public IActionResult DeleteProuct(Guid id)
