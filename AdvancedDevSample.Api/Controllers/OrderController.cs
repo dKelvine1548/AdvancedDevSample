@@ -20,11 +20,7 @@ public class OrderController : ControllerBase
     {
         var orderCreated = _service.Create(dto);
 
-        return CreatedAtAction(
-            nameof(GetById),
-            new { orderCreated.Id },
-            orderCreated
-        );
+        return Ok(orderCreated.Id);
     }
 
     [HttpGet("{id}")]

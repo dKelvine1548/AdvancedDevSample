@@ -1,4 +1,3 @@
-using AdvancedDevSample.Application.DTOs.Orders;
 using AdvancedDevSample.Application.DTOs.Products;
 using AdvancedDevSample.Application.Exceptions;
 using AdvancedDevSample.Application.services;
