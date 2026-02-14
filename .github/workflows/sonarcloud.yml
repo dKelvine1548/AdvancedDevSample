@@ -4,8 +4,6 @@ on:
   push:
     branches:            
       - sonarqube
-      - develop
-      - master
 
   pull_request:
     branche:
