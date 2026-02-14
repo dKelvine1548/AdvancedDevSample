@@ -1,66 +1,20 @@
 ﻿using AdvancedDevSample.Domain.Entities;
-using AdvancedDevSample.Domain.Interfaces.Products;
-using AdvancedDevSample.Infrastructure.DBContext;
-using Microsoft.EntityFrameworkCore;
+using AdvancedDevSample.Domain.Interfaces;
 
 namespace AdvancedDevSample.Infrastructure.Repositories
 {
     public class EfProductRepository : IProductRepository
     {
-        /**
-        public Product GetById(Guid id)
-        {
-            ProductEntity product = new () { Id = id , Price = 10, IsActive = true };
-            var domainProduct = new Product(id: product.Id,product.Name, product.Price, isActive: product.IsActive);
-            return domainProduct;
-        }
+        private static readonly Dictionary<Guid, Product> _store = new();
 
-        public void Save(Product product)
-        {
-            //accès base de données
+        public void AddProduct(Product product) => _store[product.Id] = product;
 
-        }
+        public void UpdateProduct(Product product) => _store[product.Id] = product;
 
-        public void update(Product product)
-        {
-            throw new NotImplementedException();
-        }
+        public Product GetByIdProduct(Guid id) => _store[id];
 
-        public void delete(Guid id)
-        {
-            throw new NotImplementedException();
-        } **/
+        public IEnumerable<Product> GetAllProduct() => _store.Values;
 
-        private readonly AdvancedDevSampleDbContext _context;
-        public EfProductRepository(AdvancedDevSampleDbContext context) {
-            _context = context;
-        } 
-
-        public async Task<Product?> GetByIdAsync(Guid id)
-            => await _context.Products.FindAsync(id);
-
-        public async Task<List<Product>> GetAllAsync()
-            => await _context.Products.ToListAsync();
-
-        public async Task AddAsync(Product product)
-        {
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdateAsync(Product product)
-        {
-            _context.Products.Update(product);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(Guid id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null) return;
-
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-        }
+        public void DeleteProduct(Guid id) => _store.Remove(id);
     }
 }
