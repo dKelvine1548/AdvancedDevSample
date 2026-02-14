@@ -10,31 +10,31 @@ namespace AdvancedDevSample.Api.Controllers
     [Route("api/products")]
     public class ProductController : ControllerBase
     {
-        private readonly ProductService _productService;
+        private readonly ProductService productService;
 
-        public ProductController(ProductService productService) { 
+        public ProductController(ProductService _productService) { 
 
-            _productService = productService; 
+            productService = _productService; 
 
         }
 
         [HttpPost]
         public IActionResult CreateProduct(CreateProductDto dto)
         {
-            var product = _productService.Create(dto); 
+            var product = productService.Create(dto); 
 
             return Ok(product);
         }
 
         [HttpGet]
-        public IActionResult GetAllProduct() => Ok(_productService.GetAll());
+        public IActionResult GetAllProduct() => Ok(productService.GetAll());
 
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
         {
             try
             {
-                var product = _productService.GetById(id);
+                var product = productService.GetById(id);
                 return Ok(product);
             }
 
@@ -52,7 +52,7 @@ namespace AdvancedDevSample.Api.Controllers
         [HttpPut("{id}/price")]
         public IActionResult ChangePriceProduct(Guid id, [FromBody] ChangePriceRequest request)
         {
-            var product = _productService.ChangePrice(id, request.NewPrice);
+            var product = productService.ChangePrice(id, request.NewPrice);
 
             return Ok(product);
         }
@@ -61,7 +61,7 @@ namespace AdvancedDevSample.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteProuct(Guid id)
         {
-            _productService.Delete(id); 
+            productService.Delete(id); 
             return Ok();
         }
     }
