@@ -23,7 +23,11 @@ namespace AdvancedDevSample.Api.Controllers
         {
             var customerId = CustomerService.Create(dto);
 
-            return Ok(customerId);
+            return CreatedAtAction(
+            nameof(GetById),          
+            new { id = customerId },   
+            new { id = customerId }    
+        );
         }
 
         [HttpGet]
