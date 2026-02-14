@@ -3,6 +3,7 @@
   <Folder Name="/.github/workflows/">
     <File Path="sonarcloud.yml" />
   </Folder>
+  <Folder Name="/docs/" />
   <Project Path="AdvancedDevSample.Api/AdvancedDevSample.Api.csproj" />
   <Project Path="AdvancedDevSample.Application/AdvancedDevSample.Application.csproj" />
   <Project Path="AdvancedDevSample.Domain/AdvancedDevSample.Domain.csproj" />

@@ -21,9 +21,14 @@ namespace AdvancedDevSample.Api.Controllers
         [HttpPost]
         public IActionResult CreateProduct(CreateProductDto dto)
         {
-            var productId = productService.Create(dto); 
+            var productId = productService.Create(dto);
 
-            return Ok(productId);
+            return CreatedAtAction(
+                nameof(GetById),          // 1) le nom de l'action cible
+                new { id = productId },   // 2) routeValues -> pour construire l'URL (header Location)
+                new { id = productId }    // 3) value       -> le corps (body) de la réponse HTTP 201
+            );
+
         }
 
         [HttpGet]

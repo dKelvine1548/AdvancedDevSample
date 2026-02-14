@@ -1,5 +1,6 @@
 
 using AdvancedDevSample.Application.DTOs.Orders;
+using AdvancedDevSample.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdvancedDevSample.Api.Controllers;
@@ -20,7 +21,12 @@ public class OrderController : ControllerBase
     {
         var orderCreated = _service.Create(dto);
 
-        return Ok(orderCreated.Id);
+        return CreatedAtAction(
+            nameof(GetById),          // 1) le nom de l'action cible
+            new { id = orderCreated.Id },   // 2) routeValues -> pour construire l'URL (header Location)
+            new { id = orderCreated.Id }    // 3) value       -> le corps (body) de la réponse HTTP 201
+        );
+
     }
 
     [HttpGet("{id}")]
