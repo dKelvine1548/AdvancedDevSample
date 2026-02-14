@@ -13,13 +13,16 @@ namespace AdvancedDevSample.Api.Controllers
         private readonly ProductService _productService;
 
         public ProductController(ProductService productService) { 
+
             _productService = productService; 
+
         }
 
         [HttpPost]
         public IActionResult CreateProduct(CreateProductDto dto)
         {
             var product = _productService.Create(dto); 
+
             return Ok(product);
         }
 
