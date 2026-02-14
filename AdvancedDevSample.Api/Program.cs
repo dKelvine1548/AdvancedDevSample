@@ -28,9 +28,13 @@ builder.Services.AddSwaggerGen(options =>
 
 // =============Dependances Application ===================
 builder.Services.AddScoped<IProductRepository, EfProductRepository>();
+builder.Services.AddScoped<ICustomerRepository, EfCustomerRepository>();
+builder.Services.AddSingleton<IOrderRepository, EfOrderRepository>();
 
 // =============Dependances Infrastructure ===================
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<CustomerService>();
+builder.Services.AddScoped<OrderService>();
 
 builder.Services.AddControllers();
 

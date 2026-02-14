@@ -21,13 +21,14 @@ namespace AdvancedDevSample.Api.Controllers
         [HttpPost]
         public IActionResult CreateProduct(CreateProductDto dto)
         {
-            var productId = productService.Create(dto); 
+            var productId = productService.Create(dto);
 
             return CreatedAtAction(
-                nameof(GetById),
-                new { id = productId },  
-                null               
+                nameof(GetById),          // 1) le nom de l'action cible
+                new { id = productId },   // 2) routeValues -> pour construire l'URL (header Location)
+                new { id = productId }    // 3) value       -> le corps (body) de la réponse HTTP 201
             );
+
         }
 
         [HttpGet]
@@ -63,7 +64,7 @@ namespace AdvancedDevSample.Api.Controllers
 
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteProuct(Guid id)
+        public IActionResult DeleteProduct(Guid id)
         {
             productService.Delete(id); 
             return Ok();
