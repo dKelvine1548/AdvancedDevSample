@@ -56,7 +56,7 @@ namespace AdvancedDevSample.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteProuct(Guid id)
         {
-            _productService.Delete(id);
+            _productService.Delete(id); 
             return Ok();
         }
     }
