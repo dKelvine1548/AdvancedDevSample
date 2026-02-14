@@ -1,4 +1,6 @@
-﻿using AdvancedDevSample.Application.DTOs.Products;
+﻿using AdvancedDevSample.Application.DTOs.Orders;
+using AdvancedDevSample.Application.DTOs.Products;
+using AdvancedDevSample.Application.Exceptions;
 using AdvancedDevSample.Domain.Entities;
 using AdvancedDevSample.Domain.Interfaces;
 
@@ -33,7 +35,7 @@ namespace AdvancedDevSample.Application.services
         {
             var product = _repo.GetByIdProduct(id);
             if (product == null)
-                throw new Exception("Product not found");
+                throw new ApplicationServiceException("Product not found", System.Net.HttpStatusCode.NotFound);
 
             return new ProductDto
             {

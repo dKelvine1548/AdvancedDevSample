@@ -1,3 +1,4 @@
+using AdvancedDevSample.Application.DTOs.Orders;
 using AdvancedDevSample.Application.DTOs.Products;
 using AdvancedDevSample.Application.Exceptions;
 using AdvancedDevSample.Application.services;
@@ -23,11 +24,7 @@ namespace AdvancedDevSample.Api.Controllers
         {
             var productId = productService.Create(dto); 
 
-            return CreatedAtAction(
-                nameof(GetById),
-                new { id = productId },  
-                null               
-            );
+            return Ok(productId);
         }
 
         [HttpGet]
@@ -63,7 +60,7 @@ namespace AdvancedDevSample.Api.Controllers
 
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteProuct(Guid id)
+        public IActionResult DeleteProduct(Guid id)
         {
             productService.Delete(id); 
             return Ok();
