@@ -15,73 +15,26 @@ namespace AdvancedDevSample.Api.Controllers
         public ProductController(ProductService productService) { 
             _productService = productService;
         }
-        
-        [HttpPut("{id}/price")]
-        public async Task<IActionResult> ChangePrice(Guid id, ChangePriceRequest request)
-        {
-            try
-            {
-                await _productService.ChangeProductPrice(id, request.NewPrice);    
-                return NoContent(); //204
-            }
-
-            catch (ApplicationServiceException ex)
-            {
-                return NotFound(ex.Message);
-            }
-
-            catch(DomainException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
-        {
-            try
-            {
-                var product = await _productService.GetProductAsync(id);
-                return product == null ? NotFound() : Ok(product);
-            }
-            
-            catch (ApplicationServiceException ex)
-            {
-                return NotFound(ex.Message);
-            }
-
-            catch (DomainException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            try
-            {
-                return Ok(await _productService.GetAllAsync());
-            }
-            catch (ApplicationServiceException ex)
-            {
-                return NotFound(ex.Message);
-            }
-
-            catch (DomainException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-        }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateProductDto dto)
+        public IActionResult CreateProduct(CreateProductDto dto)
+        {
+            var product = _productService.Create(dto);
+            return Ok(product);
+        }
+
+        [HttpGet]
+        public IActionResult GetAllProduct() => Ok(_productService.GetAll());
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(Guid id)
         {
             try
             {
-                var id = await _productService.CreateAsync(dto);
-                return CreatedAtAction(nameof(Get), new { id }, null);
+                var product = _productService.GetById(id);
+                return Ok(product);
             }
+
             catch (ApplicationServiceException ex)
             {
                 return NotFound(ex.Message);
@@ -91,27 +44,20 @@ namespace AdvancedDevSample.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPut("{id}/price")]
+        public IActionResult ChangePriceProduct(Guid id, [FromBody] ChangePriceRequest request)
+        {
+            var product = _productService.ChangePrice(id, request.NewPrice);
+            return Ok(product);
         }
 
         [HttpDelete("{id}")]
-            public async Task<IActionResult> Delete(Guid id)
-            {
-                try
-                {
-                    await _productService.DeleteAsync(id);
-                    return NoContent();
-                }
-
-                catch (ApplicationServiceException ex)
-                {
-                    return NotFound(ex.Message);
-                }
-
-                catch (DomainException ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-            }
-
+        public IActionResult DeleteProuct(Guid id)
+        {
+            _productService.Delete(id);
+            return Ok();
         }
+    }
 }

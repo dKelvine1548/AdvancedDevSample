@@ -1,7 +1,6 @@
 ﻿using AdvancedDevSample.Application.DTOs.Products;
-using AdvancedDevSample.Application.Exceptions;
 using AdvancedDevSample.Domain.Entities;
-using AdvancedDevSample.Domain.Interfaces.Products;
+using AdvancedDevSample.Domain.Interfaces;
 
 namespace AdvancedDevSample.Application.services
 {
@@ -12,71 +11,40 @@ namespace AdvancedDevSample.Application.services
             _repo = repo;
         }
 
-        /*public void ChangeProductPrice (Guid productId, decimal newPrice) {
-            var product = GetProduct(productId);
-            product.ChangePrice(newPrice);
-            _repo.AddAsync(product);
-
-        }*/
-
-        /*private Product GetProduct(Guid id)
+        public Guid Create(CreateProductDto dto)
         {
-            return _repo.GetByIdAsync(id)
-           ?? throw new ApplicationServiceException("Produit introuvable", System.Net.HttpStatusCode.NotFound);
-        }*/
-
-        public async Task<ProductDto?> GetProductAsync(Guid id)
-        {
-            var product = await _repo.GetByIdAsync(id);
-            if (product == null) return null;
-
-            return MapToDto(product);
-        }
-
-        public async Task<List<ProductDto>> GetAllAsync()
-        {
-            var products = await _repo.GetAllAsync();
-            return products.ConvertAll(MapToDto);
-        }
-
-        public async Task<Guid> CreateAsync(CreateProductDto dto)
-        {
-            var product = new Product
-            {
-                Id = Guid.NewGuid(),
-                Name = dto.Name
-            };
-
+            var product = new Product {Id = Guid.NewGuid(), Name = dto.Name};
             product.ChangePrice(dto.Price);
-            await _repo.AddAsync(product);
-
-            return product.Id;
+            _repo.AddProduct(product);
+            return product.Id; 
         }
 
-        public async Task ChangeProductPrice(Guid productId, decimal newPrice)
+        public Product ChangePrice(Guid id, decimal newPrice)
         {
-            var product = await _repo.GetByIdAsync(productId)
-                ?? throw new InvalidOperationException("Product not found");
-
+            var product = _repo.GetByIdProduct(id);
             product.ChangePrice(newPrice);
-            await _repo.UpdateAsync(product);
+            _repo.UpdateProduct(product);
+            return product;
         }
 
-        public async Task DeleteAsync(Guid id)
-        {
-            await _repo.DeleteAsync(id);
-        }
+        public IEnumerable<Product> GetAll() => _repo.GetAllProduct();
 
-        private static ProductDto MapToDto(Product p)
+        public ProductDto GetById(Guid id)
         {
+            var product = _repo.GetByIdProduct(id);
+            if (product == null)
+                throw new Exception("Product not found");
+
             return new ProductDto
             {
-                Id = p.Id,
-                Name = p.Name,
-                Price = p.Price,
-                IsActive = p.IsActive
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                IsActive = product.IsActive
             };
         }
+
+        public void Delete(Guid id) => _repo.DeleteProduct(id);
 
     }
 }

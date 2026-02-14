@@ -1,7 +1,6 @@
 using AdvancedDevSample.Api.Middlewares;
 using AdvancedDevSample.Application.services;
-using AdvancedDevSample.Domain.Interfaces.Products;
-using AdvancedDevSample.Infrastructure.DBContext;
+using AdvancedDevSample.Domain.Interfaces;
 using AdvancedDevSample.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,11 +33,6 @@ builder.Services.AddScoped<IProductRepository, EfProductRepository>();
 builder.Services.AddScoped<ProductService>();
 
 builder.Services.AddControllers();
-
-// configurration de la base de données en mémoire
-builder.Services.AddDbContext<AdvancedDevSampleDbContext>(options =>
-    options.UseInMemoryDatabase("ShopDb")
-);
 
 
 // Ajouter la politique CORS
