@@ -30,4 +30,4 @@ Contient :
 Expose les endpoints REST.
 
 ## Tests
-Tests unitaires des règles métier et des services.
+Tests unitaires des règles métier et des services et tests composants pour vérifier ques les différents composants du projet communique entre eux.
